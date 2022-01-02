@@ -234,6 +234,17 @@ public class InputUtils {
         System.out.println("};");
     }
 
+    public static String generateString(int number) {
+        return generateString(number,'A','Z');
+    }
+
+    public static String generateString(int number, char start, char end) {
+        StringBuffer sb = new StringBuffer(number);
+        for (int i = 0; i < number; i++) {
+            sb.append((char) (start + (char) ((end - start) * Math.random())));
+        }
+        return sb.toString();
+    }
 
     public static void printLinkedList(Node node) {
         System.out.print("Linked List: ");
