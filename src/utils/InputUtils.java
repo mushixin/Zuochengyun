@@ -1,5 +1,7 @@
 package utils;
 
+import com.sun.org.apache.bcel.internal.generic.ARETURN;
+
 import java.util.*;
 
 /**
@@ -204,14 +206,30 @@ public class InputUtils {
      * @return
      */
     public static int[][] generateMatrix(int rows, int colunms) {
+        return generateMatrix(rows, colunms,0,rows * colunms * 10) ;
+    }
+
+    public static int[][] generateMatrix(int rows, int colunms, int minValue, int maxValue) {
         int[][] result = new int[rows][colunms];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < colunms; j++) {
-                result[i][j] = (int) (rows * colunms * 10 * Math.random());
+                result[i][j] = minValue + (int) ( (maxValue-minValue+1) * Math.random());
             }
         }
 
         return result;
+    }
+    public static void fill(int[][]input, int number,int value){
+        for (int i = 0; i < number; i++) {
+            while (true){
+                int x=(int)((input.length)*Math.random());
+                int y=(int)((input[0].length)*Math.random());
+                if (input[x][y]!=value){
+                    input[x][y] = value;
+                    break;
+                }
+            }
+        }
     }
 
     // for test
