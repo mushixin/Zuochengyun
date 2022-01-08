@@ -69,22 +69,22 @@ public class Problem_13_EditCost {
 	public static void main(String[] args) {
 		String str1 = "ab12cd3";
 		String str2 = "abcdf";
-		System.out.println(minCost1(str1, str2, 5, 3, 2));
+		System.out.println(minCost1(str1, str2, 5, 3, 2));//8
 		System.out.println(minCost2(str1, str2, 5, 3, 2));
 
 		str1 = "abcdf";
 		str2 = "ab12cd3";
-		System.out.println(minCost1(str1, str2, 3, 2, 4));
+		System.out.println(minCost1(str1, str2, 3, 2, 4));//10
 		System.out.println(minCost2(str1, str2, 3, 2, 4));
 
 		str1 = "";
 		str2 = "ab12cd3";
-		System.out.println(minCost1(str1, str2, 1, 7, 5));
+		System.out.println(minCost1(str1, str2, 1, 7, 5));//7
 		System.out.println(minCost2(str1, str2, 1, 7, 5));
 
 		str1 = "abcdf";
 		str2 = "";
-		System.out.println(minCost1(str1, str2, 2, 9, 8));
+		System.out.println(minCost1(str1, str2, 2, 9, 8));//45
 		System.out.println(minCost2(str1, str2, 2, 9, 8));
 
 	}
