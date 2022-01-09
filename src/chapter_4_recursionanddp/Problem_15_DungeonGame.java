@@ -23,6 +23,7 @@ public class Problem_15_DungeonGame {
 				dp[i][j] = Math.min(right, down);
 			}
 		}
+//		printTrace(dp,m);
 		return dp[0][0];
 	}
 
@@ -58,6 +59,32 @@ public class Problem_15_DungeonGame {
 			}
 		}
 		return dp[0];
+	}
+
+	/**
+	 *
+	 * @param dp
+	 */
+	public static void printTrace(int[][] dp,int[][]map){
+		int startRow = 0;
+		int startCol = 0;
+		System.out.println("走到" + startRow + "," + startCol + "血量" + (dp[startRow][startCol]+map[startRow][startCol]));
+
+		while (startRow < dp.length - 1 || startCol < dp[0].length - 1) {
+			if (startRow == dp.length - 1) {
+				startCol++;
+			} else if (startCol == dp[0].length - 1) {
+				startRow++;
+			} else {
+				if (dp[startRow][startCol]==map[startRow][startCol]+dp[startRow+1][startCol]){
+					startRow++;
+				}else{
+					startCol++;
+				}
+			}
+			System.out.println("走到" + startRow + "," + startCol + "血量" + (dp[startRow][startCol]+map[startRow][startCol]));
+		}
+
 	}
 
 	public static void main(String[] args) {
