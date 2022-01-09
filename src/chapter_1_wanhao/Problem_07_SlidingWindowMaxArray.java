@@ -1,12 +1,76 @@
 package chapter_1_wanhao;
 
-import chapter_1_stackandqueue.Problem_07_SlidingWindowMaxArray;
 import utils.InputUtils;
 import utils.TimeUtils;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
-public class Problem_07_SlidingWindowMaxArray_needredo {
+public class Problem_07_SlidingWindowMaxArray {
+
+	/**
+	 * 搞一个队列记录元素的index，
+	 * 搞一个队列，最大的元素放在开头，
+	 * 若是后续的元素小于当前元素，放到队列末尾，
+	 * 若是后续的元素大于等于当前元素，则清空当前队列。
+	 * @param arr
+	 * @param w
+	 * @return
+	 */
+	public static int[] getMaxWindowRedo(int[] arr, int w) {
+		List<Integer>result = new ArrayList<>();
+		LinkedList<Integer>maxQueue = new LinkedList<>();
+		LinkedList<Integer>index = new LinkedList<>();
+		maxQueue.addFirst(arr[0]);
+		index.addFirst(0);
+
+		// 窗口[i-w+1,i]
+		for (int i = 1; i < arr.length; i++) {
+			if (i < w-1) {
+				if (arr[i] >= maxQueue.getFirst()) {
+					maxQueue = new LinkedList<>();
+					index = new LinkedList<>();
+					maxQueue.addFirst(arr[i]);
+					index.addFirst(i);
+				} else {
+					while (maxQueue.getLast() <= arr[i]) {
+						maxQueue.removeLast();
+						index.removeLast();
+					}
+					maxQueue.addLast(arr[i]);
+					index.addLast(i);
+				}
+			} else {
+
+				if (arr[i] >= maxQueue.getFirst()) {
+					maxQueue = new LinkedList<>();
+					index = new LinkedList<>();
+					maxQueue.addFirst(arr[i]);
+					index.addFirst(i);
+				} else {
+					while (maxQueue.getLast() <= arr[i]) {
+						maxQueue.removeLast();
+						index.removeLast();
+					}
+					maxQueue.addLast(arr[i]);
+					index.addLast(i);
+				}
+				while (index.getFirst() < i - w +1) {
+					index.removeFirst();
+					maxQueue.removeFirst();
+				}
+				result.add(maxQueue.getFirst());
+			}
+
+		}
+
+		int[]arrayRes = new int[result.size()];
+		for (int i = 0; i < result.size(); i++) {
+			arrayRes[i]= result.get(i);
+		}
+		return arrayRes;
+	}
 
 	/**
 	 * 30 min
@@ -79,10 +143,17 @@ public class Problem_07_SlidingWindowMaxArray_needredo {
 		int[]result = getMaxWindow(arr, w);
 		printArray(result);
 		TimeUtils.stop();
-		int[]result2 = Problem_07_SlidingWindowMaxArray.getMaxWindow(arr, w);
+		int[]result2 = chapter_1_stackandqueue.Problem_07_SlidingWindowMaxArray.getMaxWindow(arr, w);
 		printArray(result2);
 		TimeUtils.stop();
 		InputUtils.checkEqual(result,result2);
+
+		int[]result3 = getMaxWindowRedo(arr, w);
+		printArray(result);
+		InputUtils.checkEqual(result,result3);
+		TimeUtils.stop();
+
+
 	}
 
 }
