@@ -15,6 +15,18 @@ public class InputUtils {
         //升序，降序，随机顺序
         increase, decrease, normal
     }
+    public enum RandomRatio{
+        //将原来的数组打乱，程度
+        //只打乱一点点，
+        less,
+        //打乱五分之一
+        some,
+        //打乱三分之一
+        much,
+        num20,//打乱20个元素
+        num10,//打乱10个元素
+
+    }
 
     public static int[] generateIntArray(int number) {
         int[]arr = generateIntArray(number,  0,number * 10, true, SortType.normal);
@@ -25,7 +37,31 @@ public class InputUtils {
         int[]arr = generateIntArray(number,  0,number * 100, repeat, sortType);
         return arr;
     }
+    public static int[] generateIntArray(int number, boolean repeat, SortType sortType, RandomRatio random) {
+        int[] arr = generateIntArray(number, 0, number * 100, repeat, sortType);
 
+        int swapNums = 0;
+        if (random == RandomRatio.less) {
+            swapNums = number / 100 + 1;
+        } else if (random == RandomRatio.some) {
+            swapNums = number / 10 + 1;
+        } else if (random == RandomRatio.much) {
+            swapNums = number / 4 + 1;
+        } else if (random == RandomRatio.num10) {
+            swapNums = 10;
+        } else if (random == RandomRatio.num20) {
+            swapNums = 20;
+        }
+        while (swapNums>0){
+            swapNums--;
+            int indexFrom = (int)(Math.random() * (arr.length-1) );
+            int indexTo = (int)(Math.random() * (arr.length-1) );
+            int temp = arr[indexFrom];
+            arr[indexFrom] = arr[indexTo];
+            arr[indexTo] = temp;
+        }
+        return arr;
+    }
 
     /**
      * 多参数，构造一个测试输入数组
@@ -85,6 +121,47 @@ public class InputUtils {
         return list;
     }
 
+    /**
+     * 返回树的头节点。 感觉这最好用一个数组生成一个二叉树
+     * @param number
+     * @return
+     */
+    public static Node generateTree(int number){
+        return generateTree(generateIntArray(number));
+    }
+
+    public static Node generateTree(int number, boolean repeat, SortType sortType){
+        return generateTree(generateIntArray(number, repeat, sortType));
+    }
+    /**
+     * 根据数组的中序遍历的结果，生成这颗二叉树。返回根节点，
+     * 也就是说，若是数组是有序的，那么生成的是有序的二叉排序树。
+     * @param array
+     * @return
+     */
+    public static Node generateTree(int[] array) {
+        return generateTree(array,0,array.length-1);
+    }
+
+    /**
+     * 根据array[left,right]来生成一棵树
+     * @param array
+     * @param left
+     * @param right
+     * @return
+     */
+    public static Node generateTree(int[] array, int left, int right) {
+        if (left == right) {
+            return new Node(array[left]);
+        } else if (left > right) {
+            return null;
+        }
+        int mid = (left + right) / 2;
+        Node head = new Node(array[mid]);
+        head.left = generateTree(array, left, mid - 1);
+        head.right = generateTree(array, mid + 1, right);
+        return head;
+    }
 
     public static void arrayReverse(int[]originArray) {
         int[]reverseArray = new int[originArray.length];

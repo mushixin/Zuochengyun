@@ -1,21 +1,15 @@
 package chapter_3_wanhao;
 
 import chapter_3_binarytreeproblem.Problem_08_BiggestBSTTopologyInTree;
+import utils.InputUtils;
+import utils.InputUtils.*;
 
 /**
  * 12:05开始
  */
 public class Problem_08_BiggestBSTTopologyInTree_wh {
 
-	public static class Node {
-		public int value;
-		public Node left;
-		public Node right;
 
-		public Node(int data) {
-			this.value = data;
-		}
-	}
 
 	public static int bstTopoSize1(Node head) {
 		if (head == null) {
@@ -65,6 +59,10 @@ public class Problem_08_BiggestBSTTopologyInTree_wh {
 		System.out.println(bstTopoSize1(head));
 		System.out.println(Problem_08_BiggestBSTTopologyInTree.bstTopoSize1(head));
 //		System.out.println(bstTopoSize2(head));
+
+		head = InputUtils.generateTree(InputUtils.generateIntArray(100,false, InputUtils.SortType.increase, InputUtils.RandomRatio.less));
+		System.out.println(bstTopoSize1(head));
+		System.out.println(Problem_08_BiggestBSTTopologyInTree.bstTopoSize1(head));
 
 	}
 

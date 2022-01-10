@@ -1,9 +1,9 @@
 package chapter_3_binarytreeproblem;
 
-import chapter_3_wanhao.Problem_08_BiggestBSTTopologyInTree_wh.Node;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import utils.InputUtils.*;
 
 public class Problem_08_BiggestBSTTopologyInTree {
 
