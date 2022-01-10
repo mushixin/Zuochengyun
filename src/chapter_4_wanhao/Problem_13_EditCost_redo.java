@@ -8,6 +8,32 @@ package chapter_4_wanhao;
 public class Problem_13_EditCost_redo {
 
 	/**
+	 * 11:55
+	 * @param str1
+	 * @param str2
+	 * @param ic
+	 * @param dc
+	 * @param rc
+	 * @return
+	 */
+	public static int minCost1_redo(String str1, String str2, int ic, int dc, int rc) {
+		/**
+		 * dp[x][y]
+		 * 将str1[x] 前x 编辑为 str2[y] 的最小代价。
+		 * 这里需要分为几种情况
+		 * 相同的情况，dp[x-1][y-1]
+		 * str1末尾增加一个字符，ic+dp[x][y-1]
+		 * str1末尾删除一个字符，dc+dp[x-1][y]
+		 * str1修改一个字符，rc+dp[x-1][y-1]
+		 */
+		int[][]dp = new int[str1.length()][str2.length()];
+
+
+
+		return 0;
+	}
+
+	/**
 	 * 看清楚题，这里只能由str1，转换为str2，不能逆转换。
 	 * @param str1
 	 * @param str2

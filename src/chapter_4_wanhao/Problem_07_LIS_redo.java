@@ -6,6 +6,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Problem_07_LIS_redo {
+	/**
+	 * 最长增长子序列 10：20完成
+	 * @param arr
+	 * @return
+	 */
+	public static int[] getLongIncreaseSequenceRedo(int[] arr) {
+		/**
+		 * 以当前元素结尾的最长增长子序列
+		 */
+		int[]dp = new int[arr.length];
+
+
+		return dp;
+	}
+
 
 	public static int[] getLongIncreaseSequence(int[] arr) {
 		/**

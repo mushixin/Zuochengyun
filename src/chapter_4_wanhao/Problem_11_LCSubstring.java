@@ -1,13 +1,56 @@
 package chapter_4_wanhao;
 
-import chapter_4_recursionanddp.Problem_11_LCSubstring;
 import utils.InputUtils;
 import utils.TimeUtils;
 
 /**
  * 用dp的方法去解，然后做db的空间压缩。
  */
-public class Problem_11_LCSubstring_redo {
+public class Problem_11_LCSubstring {
+
+	/**
+	 * 没空间压缩。10：55
+	 * @param str1
+	 * @param str2
+	 * @return
+	 */
+	public static String lcstDP_Redo(String str1, String str2) {
+		/**
+		 * dp[x][y] 为str1[x] str2[y] 结尾的 为公共子串。
+		 */
+		int[][]dp = new int[str1.length()][str2.length()];
+		String maxRes = "";
+		for (int x = 0; x < str1.length(); x++) {
+			for (int y = 0; y < str2.length(); y++) {
+				if (x==0||y==0){
+					dp[x][y] = (str1.charAt(x) == str2.charAt(y)?1:0);
+				} else if (str1.charAt(x) == str2.charAt(y)){
+					dp[x][y] = dp[x-1][y-1]+1;
+					if (dp[x][y]>maxRes.length()){
+						maxRes = str1.substring(x-dp[x][y]+1,x+1);
+					}
+				}else{
+					dp[x][y] = 0;
+				}
+			}
+		}
+
+		return maxRes;
+	}
+
+	/**
+	 * 空间压缩。15min，11:00
+	 * @param str1
+	 * @param str2
+	 * @return
+	 */
+	public static String lcstDPCompress_Redo(String str1, String str2) {
+		String maxRes = "";
+//		int startRow =
+
+
+		return "";
+	}
 
 	/**
 	 *
@@ -194,6 +237,8 @@ public class Problem_11_LCSubstring_redo {
 
 		System.out.println(getLongestCommonStrDPCompress(str1,str2));
 
+		System.out.println(lcstDP_Redo(str1,str2));
+
 //		System.out.println(lcst2(str1, str2));
 		System.out.println("-----------------------------------------------------");
 
@@ -202,15 +247,17 @@ public class Problem_11_LCSubstring_redo {
 		TimeUtils.start();
 		System.out.println(lcst1(str1, str2));
 		TimeUtils.stop();
-		System.out.println(Problem_11_LCSubstring.lcst2(str1, str2));
+		System.out.println(chapter_4_recursionanddp.Problem_11_LCSubstring.lcst2(str1, str2));
 		TimeUtils.stop();
 //		System.out.println(lcstDP(str1,str2));
-		System.out.println(Problem_11_LCSubstring.lcst1(str1,str2));
+		System.out.println(chapter_4_recursionanddp.Problem_11_LCSubstring.lcst1(str1,str2));
 		TimeUtils.stop();
 
 		System.out.println(getLongestCommonStrDP(str1,str2));
 		TimeUtils.stop();
 		System.out.println(getLongestCommonStrDPCompress(str1,str2));
+		TimeUtils.stop();
+		System.out.println(lcstDP_Redo(str1,str2));
 		TimeUtils.stop();
 
 	}

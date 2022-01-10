@@ -149,7 +149,7 @@ public class Problem_07_SlidingWindowMaxArray {
 		InputUtils.checkEqual(result,result2);
 
 		int[]result3 = getMaxWindowRedo(arr, w);
-		printArray(result);
+		printArray(result3);
 		InputUtils.checkEqual(result,result3);
 		TimeUtils.stop();
 
