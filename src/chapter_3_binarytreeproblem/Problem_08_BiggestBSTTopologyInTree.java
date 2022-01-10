@@ -1,19 +1,11 @@
 package chapter_3_binarytreeproblem;
 
+import chapter_3_wanhao.Problem_08_BiggestBSTTopologyInTree_wh.Node;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Problem_08_BiggestBSTTopologyInTree {
-
-	public static class Node {
-		public int value;
-		public Node left;
-		public Node right;
-
-		public Node(int data) {
-			this.value = data;
-		}
-	}
 
 	public static int bstTopoSize1(Node head) {
 		if (head == null) {
