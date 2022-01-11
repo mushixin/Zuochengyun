@@ -178,6 +178,15 @@ public class InputUtils {
         }
         System.out.print("}");
     }
+
+    public static void printArr(Integer[] arr) {
+        System.out.print("{" + arr[0].intValue());
+        for (int i = 1; i < arr.length; i++) {
+            System.out.print(", "+arr[i].intValue());
+        }
+        System.out.print("}");
+    }
+
     public static void printlnArr(int[] arr) {
         printArr(arr);
         System.out.println();
