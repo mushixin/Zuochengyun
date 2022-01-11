@@ -4,10 +4,8 @@ import chapter_8_arrayandmatrix.Problem_20_PrintMaxTopK;
 import utils.InputUtils;
 import utils.TimeUtils;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Problem_20_PrintMaxTopK_wh {
 
@@ -51,7 +49,13 @@ public class Problem_20_PrintMaxTopK_wh {
             }
 
         }
-		System.out.println(topMaxK.toString());
+		List<Integer>res = topMaxK.stream().sorted(new Comparator<Integer>(){
+			@Override
+			public int compare(Integer o1, Integer o2) {
+				return o2-o1;
+			}
+		}).collect(Collectors.toList());
+		System.out.println(res.toString());
     }
 
     public static int[][] generateRandomMatrix(int maxRow, int maxCol,
