@@ -1,14 +1,12 @@
 package chapter_8_wanhao;
 
-import chapter_8_arrayandmatrix.Problem_24_MinPathValue;
 import javafx.util.Pair;
 import utils.InputUtils;
 import utils.TimeUtils;
 
 import java.util.LinkedList;
-import java.util.Queue;
 
-public class Problem_24_MinPathValue_redo {
+public class Problem_24_MinPathValue {
     public static boolean[][] mapSteped = null;
 
     /**
@@ -174,7 +172,7 @@ public class Problem_24_MinPathValue_redo {
         matrix[0][0] = 1;
         matrix[matrix.length - 1][matrix[0].length - 1] = 1;
         TimeUtils.start();
-        System.out.println(Problem_24_MinPathValue.minPathValue(matrix));
+        System.out.println(chapter_8_arrayandmatrix.Problem_24_MinPathValue.minPathValue(matrix));
         TimeUtils.stop();
 //		System.out.println(minPathValue(matrix));
 //		TimeUtils.stop();
