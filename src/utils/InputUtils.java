@@ -177,6 +177,7 @@ public class InputUtils {
             System.out.print(", "+arr[i]);
         }
         System.out.print("}");
+        System.out.println();
     }
 
     public static void printArr(Integer[] arr) {
