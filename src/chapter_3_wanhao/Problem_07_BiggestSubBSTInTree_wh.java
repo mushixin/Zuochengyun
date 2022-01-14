@@ -1,5 +1,7 @@
 package chapter_3_wanhao;
 
+import utils.OutputUtils;
+import utils.InputUtils.Node;
 /**
  * 这里注意是，二叉子树，而不是二叉树的子集。
  * 例如说， 1
@@ -11,17 +13,8 @@ package chapter_3_wanhao;
  *          4
  *   这里要区分下概念。如果说是树的子集（或者说是树的最大拓扑结构），就可以是下面的。
  */
-public class Problem_07_BiggestSubBSTInTree_redo {
+public class Problem_07_BiggestSubBSTInTree_wh {
 
-    public static class Node {
-        public int value;
-        public Node left;
-        public Node right;
-
-        public Node(int data) {
-            this.value = data;
-        }
-    }
 
     public static Node getMaxBST(Node head) {
         ReturnType returnType = process(head, Integer.MIN_VALUE, Integer.MAX_VALUE);
@@ -143,9 +136,9 @@ public class Problem_07_BiggestSubBSTInTree_redo {
         head.right.right.left = new Node(20);
         head.right.right.right = new Node(16);
 
-        printTree(head);
+        OutputUtils.printTree(head);
         Node bst = getMaxBST(head);
-        printTree(bst);
+        OutputUtils.printTree(bst);
 
     }
 
