@@ -1,6 +1,7 @@
 package chapter_3_wanhao;
 
 import utils.InputUtils.Node;
+import utils.OutputUtils;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -166,6 +167,7 @@ public class Problem_01_PreInPosTraversal_wh {
 		head.right.right.left = new Node(9);
 		head.right.right.right = new Node(11);
 
+		OutputUtils.printTree(head);
 		// recursive
 		System.out.println("==============recursive==============");
 		System.out.print("pre-order: ");
