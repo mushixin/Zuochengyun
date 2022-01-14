@@ -1,5 +1,7 @@
 package chapter_3_wanhao;
 
+import chapter_3_binarytreeproblem.Problem_07_BiggestSubBSTInTree;
+import utils.InputUtils;
 import utils.OutputUtils;
 import utils.InputUtils.Node;
 
@@ -37,10 +39,11 @@ public class Problem_07_BiggestSubBSTInTree_redo1 {
         }
         ReturnType left = process(head.left);
         ReturnType right = process(head.right);
+        //left.bst == head.left && right.bst == head.right 这个细节比较重要不然的话，会把不是直接子树的，也会当作子树。
         if ((left.max < head.value || left.max == Integer.MAX_VALUE) &&
-                (head.value < right.min || right.min == Integer.MIN_VALUE)) {
-            ReturnType result = new ReturnType(right.max!=Integer.MAX_VALUE?right.max:head.value,
-                    left.min!=Integer.MIN_VALUE? left.min : head.value, 1 + left.num + right.num, head);
+                (head.value < right.min || right.min == Integer.MIN_VALUE) && left.bst == head.left && right.bst == head.right) {
+            ReturnType result = new ReturnType(right.max != Integer.MAX_VALUE ? right.max : head.value,
+                    left.min != Integer.MIN_VALUE ? left.min : head.value, 1 + left.num + right.num, head);
             return result;
         }
         return left.num > right.num ? left : right;
@@ -64,8 +67,16 @@ public class Problem_07_BiggestSubBSTInTree_redo1 {
         head.right.right.left = new Node(20);
         head.right.right.right = new Node(16);
 
-        OutputUtils.printTree(head);
+//        OutputUtils.printTree(head);
         Node bst = getMaxBST(head);
+//        OutputUtils.printTree(bst);
+//        bst = Problem_07_BiggestSubBSTInTree.getMaxBST(head);
+//        OutputUtils.printTree(bst);
+
+        head = InputUtils.generateTree(InputUtils.generateIntArray(1000, false, InputUtils.SortType.increase, InputUtils.RandomRatio.some));
+        bst = getMaxBST(head);
+        OutputUtils.printTree(bst);
+        bst = Problem_07_BiggestSubBSTInTree.getMaxBST(head);
         OutputUtils.printTree(bst);
 
     }

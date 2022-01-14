@@ -1,16 +1,8 @@
 package chapter_3_binarytreeproblem;
-
+import utils.InputUtils.Node;
 public class Problem_07_BiggestSubBSTInTree {
 
-	public static class Node {
-		public int value;
-		public Node left;
-		public Node right;
 
-		public Node(int data) {
-			this.value = data;
-		}
-	}
 
 	public static Node getMaxBST(Node head) {
 		return process(head).maxBSTHead;
