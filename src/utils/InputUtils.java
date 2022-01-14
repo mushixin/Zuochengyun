@@ -1,7 +1,5 @@
 package utils;
 
-import com.sun.org.apache.bcel.internal.generic.ARETURN;
-
 import java.util.*;
 
 /**
@@ -15,7 +13,8 @@ public class InputUtils {
         //升序，降序，随机顺序
         increase, decrease, normal
     }
-    public enum RandomRatio{
+
+    public enum RandomRatio {
         //将原来的数组打乱，程度
         //只打乱一点点，
         less,
@@ -29,14 +28,16 @@ public class InputUtils {
     }
 
     public static int[] generateIntArray(int number) {
-        int[]arr = generateIntArray(number,  0,number * 10, true, SortType.normal);
+        int[] arr = generateIntArray(number, 0, number * 10, true, SortType.normal);
         printlnArr(arr);
         return arr;
     }
+
     public static int[] generateIntArray(int number, boolean repeat, SortType sortType) {
-        int[]arr = generateIntArray(number,  0,number * 100, repeat, sortType);
+        int[] arr = generateIntArray(number, 0, number * 100, repeat, sortType);
         return arr;
     }
+
     public static int[] generateIntArray(int number, boolean repeat, SortType sortType, RandomRatio random) {
         int[] arr = generateIntArray(number, 0, number * 100, repeat, sortType);
 
@@ -52,10 +53,10 @@ public class InputUtils {
         } else if (random == RandomRatio.num20) {
             swapNums = 20;
         }
-        while (swapNums>0){
+        while (swapNums > 0) {
             swapNums--;
-            int indexFrom = (int)(Math.random() * (arr.length-1) );
-            int indexTo = (int)(Math.random() * (arr.length-1) );
+            int indexFrom = (int) (Math.random() * (arr.length - 1));
+            int indexTo = (int) (Math.random() * (arr.length - 1));
             int temp = arr[indexFrom];
             arr[indexFrom] = arr[indexTo];
             arr[indexTo] = temp;
@@ -65,14 +66,15 @@ public class InputUtils {
 
     /**
      * 多参数，构造一个测试输入数组
-     * @param number 数量
-     * @param min 最小值
-     * @param max 最大值
-     * @param repeat 是否可以重复
+     *
+     * @param number   数量
+     * @param min      最小值
+     * @param max      最大值
+     * @param repeat   是否可以重复
      * @param sortType 是否增续，降序，乱序
      * @return
      */
-    public static int[] generateIntArray(int number,int min, int max, boolean repeat, SortType sortType) {
+    public static int[] generateIntArray(int number, int min, int max, boolean repeat, SortType sortType) {
 
         int[] res = generateIntArray(number, min, max, repeat);
 
@@ -90,19 +92,19 @@ public class InputUtils {
 
 
     public static int[] generateIntArray(int number, int min, int max, boolean repeat) {
-        if(!repeat && number>max-min){
+        if (!repeat && number > max - min) {
             throw new RuntimeException("min max范围过小");
         }
 
         int[] input = new int[number];
-        Set<Integer>set = new HashSet<>();
+        Set<Integer> set = new HashSet<>();
 
         for (int i = 0; i < number; i++) {
             input[i] = (int) (Math.random() * (max - min)) + min;
 
             if (!repeat) {
                 //不可重复
-                while(set.contains(input[i])){
+                while (set.contains(input[i])) {
                     input[i] = (int) (Math.random() * (max - min)) + min;
                 }
                 set.add(input[i]);
@@ -116,35 +118,39 @@ public class InputUtils {
     public static List<Integer> generateIntList(int number) {
         int[] arr = generateIntArray(number);
         List<Integer> list = new ArrayList<>(number);
-        Arrays.stream(arr).forEach(i->list.add(i));
-        System.out.println("输入:"+list.toString());
+        Arrays.stream(arr).forEach(i -> list.add(i));
+        System.out.println("输入:" + list.toString());
         return list;
     }
 
     /**
      * 返回树的头节点。 感觉这最好用一个数组生成一个二叉树
+     *
      * @param number
      * @return
      */
-    public static Node generateTree(int number){
+    public static Node generateTree(int number) {
         return generateTree(generateIntArray(number));
     }
 
-    public static Node generateTree(int number, boolean repeat, SortType sortType){
+    public static Node generateTree(int number, boolean repeat, SortType sortType) {
         return generateTree(generateIntArray(number, repeat, sortType));
     }
+
     /**
      * 根据数组的中序遍历的结果，生成这颗二叉树。返回根节点，
      * 也就是说，若是数组是有序的，那么生成的是有序的二叉排序树。
+     *
      * @param array
      * @return
      */
     public static Node generateTree(int[] array) {
-        return generateTree(array,0,array.length-1);
+        return generateTree(array, 0, array.length - 1);
     }
 
     /**
      * 根据array[left,right]来生成一棵树
+     *
      * @param array
      * @param left
      * @param right
@@ -163,18 +169,18 @@ public class InputUtils {
         return head;
     }
 
-    public static void arrayReverse(int[]originArray) {
-        int[]reverseArray = new int[originArray.length];
+    public static void arrayReverse(int[] originArray) {
+        int[] reverseArray = new int[originArray.length];
         for (int i = 0; i < originArray.length; i++) {
             reverseArray[i] = originArray[originArray.length - i - 1];
         }
-        System.arraycopy(reverseArray,0,originArray,0,originArray.length);
+        System.arraycopy(reverseArray, 0, originArray, 0, originArray.length);
     }
 
     public static void printArr(int[] arr) {
         System.out.print("{" + arr[0]);
         for (int i = 1; i < arr.length; i++) {
-            System.out.print(", "+arr[i]);
+            System.out.print(", " + arr[i]);
         }
         System.out.print("}");
         System.out.println();
@@ -183,7 +189,7 @@ public class InputUtils {
     public static void printArr(Integer[] arr) {
         System.out.print("{" + arr[0].intValue());
         for (int i = 1; i < arr.length; i++) {
-            System.out.print(", "+arr[i].intValue());
+            System.out.print(", " + arr[i].intValue());
         }
         System.out.print("}");
     }
@@ -195,16 +201,17 @@ public class InputUtils {
 
     /**
      * 校验arr1 和 arr2 数组长度和内容是一致的，否则报错
+     *
      * @param arr1
      * @param arr2
      */
-    public static void checkEqual(int[] arr1, int[] arr2){
-        if (arr1.length!=arr2.length){
-            throw new RuntimeException("arr1.length:"+arr1.length+",arr2.length:"+arr2.length);
+    public static void checkEqual(int[] arr1, int[] arr2) {
+        if (arr1.length != arr2.length) {
+            throw new RuntimeException("arr1.length:" + arr1.length + ",arr2.length:" + arr2.length);
         }
         for (int i = 0; i < arr1.length; i++) {
-            if (arr1[i]!=arr2[i]){
-                throw new RuntimeException("position "+i +" arr1:" +arr1[i]+ " arr2:"+arr2[i]);
+            if (arr1[i] != arr2[i]) {
+                throw new RuntimeException("position " + i + " arr1:" + arr1[i] + " arr2:" + arr2[i]);
             }
         }
 
@@ -212,6 +219,7 @@ public class InputUtils {
 
     /**
      * 校验两个链表是否相同
+     *
      * @param head1
      * @param head2
      */
@@ -229,6 +237,7 @@ public class InputUtils {
 
     /**
      * 会将一个链表，复制一份，返回另一个完全独立的链表。
+     *
      * @return
      */
     public static Node cloneNewNode(Node head) {
@@ -250,7 +259,7 @@ public class InputUtils {
         if (head == null) {
             return null;
         }
-        if (head.left == null && head.right == null){
+        if (head.left == null && head.right == null) {
             return new Node(head.value);
         }
 
@@ -277,7 +286,7 @@ public class InputUtils {
     }
 
     public static Node generateLinkedList(int number) {
-        int[] array = generateIntArray(number,  0,number * 10, true, SortType.normal);
+        int[] array = generateIntArray(number, 0, number * 10, true, SortType.normal);
         Node head = new Node(array[0]);
         Node temp = head;
         for (int i = 1; i < array.length; i++) {
@@ -290,28 +299,30 @@ public class InputUtils {
 
     /**
      * 返回一个矩阵
+     *
      * @return
      */
     public static int[][] generateMatrix(int rows, int colunms) {
-        return generateMatrix(rows, colunms,0,rows * colunms * 10) ;
+        return generateMatrix(rows, colunms, 0, rows * colunms * 10);
     }
 
     public static int[][] generateMatrix(int rows, int colunms, int minValue, int maxValue) {
         int[][] result = new int[rows][colunms];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < colunms; j++) {
-                result[i][j] = minValue + (int) ( (maxValue-minValue+1) * Math.random());
+                result[i][j] = minValue + (int) ((maxValue - minValue + 1) * Math.random());
             }
         }
 
         return result;
     }
-    public static void fill(int[][]input, int number,int value){
+
+    public static void fill(int[][] input, int number, int value) {
         for (int i = 0; i < number; i++) {
-            while (true){
-                int x=(int)((input.length)*Math.random());
-                int y=(int)((input[0].length)*Math.random());
-                if (input[x][y]!=value){
+            while (true) {
+                int x = (int) ((input.length) * Math.random());
+                int y = (int) ((input[0].length) * Math.random());
+                if (input[x][y] != value) {
                     input[x][y] = value;
                     break;
                 }
@@ -326,7 +337,7 @@ public class InputUtils {
             System.out.print("{");
             for (int j = 0; j != matrix[0].length; j++) {
                 System.out.print(matrix[i][j]);
-                if (j!=matrix[0].length-1){
+                if (j != matrix[0].length - 1) {
                     System.out.print(",");
                 }
             }
@@ -340,7 +351,7 @@ public class InputUtils {
     }
 
     public static String generateString(int number) {
-        return generateString(number,'A','Z');
+        return generateString(number, 'A', 'Z');
     }
 
     public static String generateString(int number, char start, char end) {
@@ -367,11 +378,15 @@ public class InputUtils {
 //        printArr(generateIntArray(100,0,1000*100,false,SortType.decrease));
 
 //        checkEqual( generateIntArray(10),  generateIntArray(10));
-        Node n = generateLinkedList(50);
-        printLinkedList(n);
-        Node newNode = cloneNewNode(n);
-        printLinkedList(newNode);
-        checkEqual(n, newNode);
+
+//        Node n = generateLinkedList(50);
+//        printLinkedList(n);
+//        Node newNode = cloneNewNode(n);
+//        printLinkedList(newNode);
+//        checkEqual(n, newNode);
+
+        Node n = generateTree(10, false, SortType.increase);
+        OutputUtils.printTree(n);
     }
 
 }
