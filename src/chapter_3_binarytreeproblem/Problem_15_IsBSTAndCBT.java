@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import utils.InputUtils.*;
 
-public class Problem_15_IsBSTAndCBT_redo {
+public class Problem_15_IsBSTAndCBT {
 
 
 	public static boolean isBST(Node head) {

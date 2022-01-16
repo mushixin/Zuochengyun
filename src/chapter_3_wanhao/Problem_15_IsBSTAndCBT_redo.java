@@ -1,13 +1,13 @@
 package chapter_3_wanhao;
 
-import chapter_3_binarytreeproblem.Problem_15_IsBSTAndCBT_redo;
+import chapter_3_binarytreeproblem.Problem_15_IsBSTAndCBT;
 import utils.InputUtils.*;
 
 import java.util.LinkedList;
 
 import static utils.OutputUtils.printTree;
 
-public class Problem_15_IsBSTAndCBT_wh {
+public class Problem_15_IsBSTAndCBT_redo {
 
     /**
      * 搜索二叉树
@@ -40,33 +40,27 @@ public class Problem_15_IsBSTAndCBT_wh {
      */
     public static boolean isCBT(Node head) {
         LinkedList<Node> q1 = new LinkedList<>();
-        LinkedList<Node> q2 = new LinkedList<>();
         q1.addLast(head);
-        boolean lastLevel = false;//是否是最后一层最后一个结点
-        boolean hasSubNode = false;//同一层有子节点。
-
+        //某个节点后（这个结点最多只有一个左子节点），必须都没有子节点了。某个结点前，都有两个子节点。
+        boolean lastHasSub = false;
         while (!q1.isEmpty()) {
             Node n = q1.removeFirst();
+            if (lastHasSub) {
+                if (n.right != null || n.left != null) {
+                    return false;
+                }
+            } else {
+                if (n.right == null || n.left == null) {
+                    lastHasSub = true;
+                }
+            }
             if (n.left != null) {
-                q2.addLast(n.left);
-                hasSubNode = true;
+                q1.addLast(n.left);
             }
             if (n.right != null) {
-                q2.addLast(n.right);
-                hasSubNode = true;
-            }
-            if (n.left == null || n.right == null) {
-                lastLevel = true;
-            }
-            if (lastLevel && hasSubNode) {
-                return false;
+                q1.addLast(n.right);
             }
 
-            if (q1.isEmpty()) {
-                q1 = q2;
-                q2 = new LinkedList<>();
-                hasSubNode = false;//同一层有子节点。
-            }
         }
         return true;
     }
@@ -83,13 +77,13 @@ public class Problem_15_IsBSTAndCBT_wh {
         printTree(head);
         System.out.println(isBST(head));
         System.out.println(isCBT(head));
-		System.out.println(Problem_15_IsBSTAndCBT_redo.isCBT(head));
-		head.right.left.left = new Node(5);
-		printTree(head);
-		System.out.println(isBST(head));
-		System.out.println(isCBT(head));
-		System.out.println(Problem_15_IsBSTAndCBT_redo.isCBT(head));
+        System.out.println(Problem_15_IsBSTAndCBT.isCBT(head));
+        head.right.left.left = new Node(5);
+        printTree(head);
+        System.out.println(isBST(head));
+        System.out.println(isCBT(head));
+        System.out.println(Problem_15_IsBSTAndCBT.isCBT(head));
 
 
-	}
+    }
 }
