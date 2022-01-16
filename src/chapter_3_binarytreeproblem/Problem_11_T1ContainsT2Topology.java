@@ -1,16 +1,9 @@
 package chapter_3_binarytreeproblem;
+import utils.InputUtils.*;
 
 public class Problem_11_T1ContainsT2Topology {
 
-	public static class Node {
-		public int value;
-		public Node left;
-		public Node right;
 
-		public Node(int data) {
-			this.value = data;
-		}
-	}
 
 	public static boolean contains(Node t1, Node t2) {
 		if (t2 == null) {

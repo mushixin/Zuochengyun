@@ -1,30 +1,24 @@
 package chapter_3_wanhao;
+import utils.InputUtils.*;
 
+/**
+ * 遍历一遍，然后使用string的匹配即可。KMP算法可以是N+M时间复杂度。
+ */
 public class Problem_12_T1SubtreeEqualsT2_wh {
 
-	public static class Node {
-		public int value;
-		public Node left;
-		public Node right;
-
-		public Node(int data) {
-			this.value = data;
-		}
-	}
-
 	public static boolean isSubtree(Node t1, Node t2) {
-		String t1Str = serialByPre(t1);
-		String t2Str = serialByPre(t2);
-		return getIndexOf(t1Str, t2Str) != -1;
+		StringBuffer t1Str = serialByPre(t1);
+		StringBuffer t2Str = serialByPre(t2);
+		return getIndexOf(t1Str.toString(), t2Str.toString()) != -1;
 	}
 
-	public static String serialByPre(Node head) {
+	public static StringBuffer serialByPre(Node head) {
 		if (head == null) {
-			return "#!";
+			return new StringBuffer("#!");
 		}
-		String res = head.value + "!";
-		res += serialByPre(head.left);
-		res += serialByPre(head.right);
+		StringBuffer res = new StringBuffer(head.value + "!");
+		res.append(serialByPre(head.left));
+		res.append(serialByPre(head.right));
 		return res;
 	}
 

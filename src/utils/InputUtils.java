@@ -8,6 +8,8 @@ import java.util.*;
  */
 
 public class InputUtils {
+    //打印数量超过这莫多，就不再打印
+    public static final int OUTPUT_LIMIT = 100;
 
     public enum SortType {
         //升序，降序，随机顺序
@@ -29,7 +31,9 @@ public class InputUtils {
 
     public static int[] generateIntArray(int number) {
         int[] arr = generateIntArray(number, 0, number * 10, true, SortType.normal);
-        printlnArr(arr);
+        if (number <= OUTPUT_LIMIT) {
+            printlnArr(arr);
+        }
         return arr;
     }
 
