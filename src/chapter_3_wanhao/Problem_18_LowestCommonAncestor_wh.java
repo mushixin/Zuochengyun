@@ -30,6 +30,53 @@ public class Problem_18_LowestCommonAncestor_wh {
         return null;
     }
 
+    public static Node lowestAncestor2(Node head, Node n1, Node n2) {
+        Map<Node, Node> map = getAncestors2(head, new HashMap<>());
+        LinkedList<Node> n1Parents = getParents(map, n1);
+        LinkedList<Node> n2Parents = getParents(map, n2);
+        Set<Node> n1set = new HashSet<>(n1Parents);
+
+        while (!n2Parents.isEmpty()) {
+            Node last = n2Parents.removeLast();
+            if (n1set.contains(last)) {
+                return last;
+            }
+        }
+        return null;
+    }
+
+    public static LinkedList<Node> getParents(Map<Node, Node> map, Node n) {
+        LinkedList<Node> n1Parents = new LinkedList<>();
+        n1Parents.addFirst(n);
+        while (map.containsKey(n)) {
+            n1Parents.addFirst(map.get(n));
+            n = map.get(n);
+        }
+        return n1Parents;
+    }
+
+    /**
+     * 返回每个点，对应的父节点，然后直接可以获得父节点链表，然后再去计算即可。
+     *
+     * @param head
+     * @return
+     */
+    public static Map<Node, Node> getAncestors2(Node head, Map<Node, Node> map) {
+        if (head == null) {
+            return map;
+        }
+        if (head.left != null) {
+            map.put(head.left, head);
+            getAncestors2(head.left, map);
+        }
+        if (head.right != null) {
+            map.put(head.right, head);
+            getAncestors2(head.right, map);
+        }
+        return map;
+    }
+
+
     /**
      * 得到一个结点的所有父节点列表，第一个元素为根节点，末尾的结点为n1
      * 回溯法即可，找到了目标结点后，直接返回。
@@ -84,26 +131,30 @@ public class Problem_18_LowestCommonAncestor_wh {
         System.out.println("o1 : " + o1.value);
         System.out.println("o2 : " + o2.value);
         System.out.println("ancestor : " + lowestAncestor(head, o1, o2).value);
-        System.out.println("===============");
+		System.out.println("ancestor : " + lowestAncestor2(head, o1, o2).value);
 
-		o1 = head.left.right;
-		o2 = head.right.right.left;
-
-		// ���β�ѯ--ԭ����
-		System.out.println("o1 : " + o1.value);
-		System.out.println("o2 : " + o2.value);
-		System.out.println("ancestor : " + lowestAncestor(head, o1, o2).value);
 		System.out.println("===============");
 
-		o1 = head.right.right;
-		o2 = head.right.right.left;
+        o1 = head.left.right;
+        o2 = head.right.right.left;
 
-		// ���β�ѯ--ԭ����
-		System.out.println("o1 : " + o1.value);
-		System.out.println("o2 : " + o2.value);
-		System.out.println("ancestor : " + lowestAncestor(head, o1, o2).value);
+        // ���β�ѯ--ԭ����
+        System.out.println("o1 : " + o1.value);
+        System.out.println("o2 : " + o2.value);
+        System.out.println("ancestor : " + lowestAncestor(head, o1, o2).value);
+		System.out.println("ancestor : " + lowestAncestor2(head, o1, o2).value);
 		System.out.println("===============");
 
+        o1 = head.right.right;
+        o2 = head.right.right.left;
+
+        // ���β�ѯ--ԭ����
+        System.out.println("o1 : " + o1.value);
+        System.out.println("o2 : " + o2.value);
+        System.out.println("ancestor : " + lowestAncestor(head, o1, o2).value);
+		System.out.println("ancestor : " + lowestAncestor2(head, o1, o2).value);
+
+		System.out.println("===============");
 
 
 //		// ����map�󷽱��β�ѯ--��������
