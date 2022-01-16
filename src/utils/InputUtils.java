@@ -2,6 +2,7 @@ package utils;
 
 import java.util.*;
 
+
 /**
  * 可以辅助构造数据，并且可以打印构造的数据。
  * 每个方法可以测试下性能，然后再用暴力枚举的方式，验证下性能和结果的正确性。
@@ -141,6 +142,7 @@ public class InputUtils {
         return generateTree(generateIntArray(number, repeat, sortType));
     }
 
+
     /**
      * 根据数组的中序遍历的结果，生成这颗二叉树。返回根节点，
      * 也就是说，若是数组是有序的，那么生成的是有序的二叉排序树。
@@ -170,6 +172,72 @@ public class InputUtils {
         Node head = new Node(array[mid]);
         head.left = generateTree(array, left, mid - 1);
         head.right = generateTree(array, mid + 1, right);
+        return head;
+    }
+
+    public static Node generateCompletedTree(int num) {
+        return generateCompletedTree(InputUtils.generateIntArray(num, false, SortType.increase), 0, num - 1);
+    }
+
+    /**
+     * 创建完全二叉树.
+     *
+     * @param array
+     * @param left
+     * @param right
+     * @return
+     */
+    public static Node generateCompletedTree(int[] array, int left, int right) {
+        if (left == right) {
+            return new Node(array[left]);
+        } else if (left > right) {
+            return null;
+        } else if (left + 1 == right) {
+            Node h = new Node(array[left]);
+            h.left = new Node(array[left + 1]);
+            return h;
+        }
+        int[] two = new int[100];
+        int[] fullTree = new int[100];//满二叉树,x层,有多少结点
+        two[0] = 1;
+        for (int i = 1; i < 100; i++) {
+            two[i] = 2 * two[i - 1];
+        }
+        fullTree[0] = 1;
+        for (int i = 1; i < 100; i++) {
+            fullTree[i] = fullTree[i - 1] + two[i];
+        }
+
+        /**
+         * 确认mid结点,然后拆分为左右
+         * 左右至少有一边是完美二叉树,然后左边的树数量,大于等于右边的树
+         */
+        int totalNum = right - left;//去掉根节点
+        int level = 0;
+        while (fullTree[level + 1] * 2 < totalNum) {
+            level++;
+        }
+        int leftCou = 0;
+        int rightCou = 0;
+        //不完整的树在左边还是右边.
+        if (fullTree[level] + fullTree[level + 1] <= totalNum) {//右
+            leftCou = fullTree[level + 1];
+            rightCou = totalNum - fullTree[level + 1];
+        } else {//左
+            leftCou = totalNum - fullTree[level];
+            rightCou = fullTree[level];
+        }
+        //极端情况
+        if (leftCou < rightCou) {
+            int temp = leftCou;
+            leftCou = rightCou;
+            rightCou = temp;
+        }
+
+        int mid = left + leftCou;
+        Node head = new Node(array[mid]);
+        head.left = generateCompletedTree(array, left, left + leftCou - 1);
+        head.right = generateCompletedTree(array, right - rightCou + 1, right);
         return head;
     }
 

@@ -1,16 +1,8 @@
 package chapter_3_binarytreeproblem;
+import utils.InputUtils.*;
 
 public class Problem_24_CompleteTreeNodeNumber {
 
-	public static class Node {
-		public int value;
-		public Node left;
-		public Node right;
-
-		public Node(int data) {
-			this.value = data;
-		}
-	}
 
 	public static int nodeNum(Node head) {
 		if (head == null) {

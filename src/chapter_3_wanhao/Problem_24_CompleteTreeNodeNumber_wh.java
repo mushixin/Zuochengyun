@@ -1,6 +1,10 @@
 package chapter_3_wanhao;
 
+import chapter_3_binarytreeproblem.Problem_24_CompleteTreeNodeNumber;
+import utils.InputUtils;
 import utils.InputUtils.*;
+import utils.OutputUtils;
+import utils.TimeUtils;
 
 import java.util.LinkedList;
 
@@ -104,6 +108,14 @@ public class Problem_24_CompleteTreeNodeNumber_wh {
 
 		head.left.left.left = new Node(8);
 		System.out.println(nodeNum(head));//8
+
+		head = InputUtils.generateCompletedTree(1000_0000);
+//		OutputUtils.printTree(head);
+		TimeUtils.start();
+		System.out.println(nodeNum(head));
+		TimeUtils.stop();
+		System.out.println(Problem_24_CompleteTreeNodeNumber.nodeNum(head));
+		TimeUtils.stop();
 
 	}
 
