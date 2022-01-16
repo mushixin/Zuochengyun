@@ -2,18 +2,10 @@ package chapter_3_binarytreeproblem;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import utils.InputUtils.*;
 
-public class Problem_15_IsBSTAndCBT {
+public class Problem_15_IsBSTAndCBT_redo {
 
-	public static class Node {
-		public int value;
-		public Node left;
-		public Node right;
-
-		public Node(int data) {
-			this.value = data;
-		}
-	}
 
 	public static boolean isBST(Node head) {
 		if (head == null) {
