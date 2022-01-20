@@ -2,6 +2,10 @@ package leecode;
 
 import java.util.List;
 
+/**
+ * 这个题目反思下，dp的递归公式。
+ * 一般是根据dp中的元素来递推的，dp[x] = dp[x-xx]这样，而不是说被外界来被动修改更新的。
+ */
 class Solution139_redo {
 
     public boolean wordBreak(String s, List<String> wordDict) {
