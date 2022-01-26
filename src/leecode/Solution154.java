@@ -35,12 +35,11 @@ class Solution154 {
         int right = nums.length-1;
         while(left<=right){
             int mid =(left+right)/2;
-            // boolean mL = minLeft(nums,mid,left,mid);
-            // boolean mR = minRight(nums,mid,mid,right);
-            // if(mL && mR){
-            //     return mid;
-            // }else 
-            if(nums[mid]<nums[left]){
+             boolean mL = minLeft(nums,mid,left,mid);
+             boolean mR = minRight(nums,mid,mid,right);
+             if(mL && mR){
+                 return nums[mid];
+             }else if(nums[mid]<nums[left]){
                 right = mid-1;
             }else if(nums[mid]>nums[right]){
                 left = mid+1;
@@ -48,13 +47,24 @@ class Solution154 {
                 right = mid-1;
             }else if(nums[mid]==nums[right]){
                 if(minLeft(nums,mid,left,mid)){
-                    return mid;
+                    return nums[mid];
                 }else{
                     right = mid-1;
                 }
+            }else{
+                right = mid-1;
             }
         }
 
-        return left;
+        return nums[left];
+    }
+
+    public static void main(String[] args) {
+//        int[]input = {1,3,5};
+//        System.out.println(new Solution154().findMin(input));
+
+        char[]input = {'a','b','c'};
+        System.out.println(new String(input));
+
     }
 }
