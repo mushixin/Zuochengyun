@@ -63,7 +63,7 @@ public class Solution {
     public static void main(String[] args) {
         System.out.println(new interview.Solution().judgePoint24(new int[]{4,1,8,7}));
 
-
+//        Arrays.sort();
 
     }
 }
