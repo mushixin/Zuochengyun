@@ -1,42 +1,75 @@
-package leecode;
+package leecode;/*
+// Definition for a Node.
+*/
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 class Solution {
-    public int numberOfSubarrays(int[] nums, int k) {
-        ArrayList<Integer> list = new ArrayList<>();
-        list.add(-1);
-        for(int i=0;i<nums.length;++i){
-            if((nums[i]%2)==1){
-                list.add(i);
-            }
+    public static class Node {
+        public int val;
+        public List<Node> neighbors;
+        public Node() {
+            val = 0;
+            neighbors = new ArrayList<Node>();
         }
-        list.add(nums.length);
-        int result = 0;
-        for(int start=1;start+k-1<list.size()-1;++start){
-            int end = start+k-1;//[start,end]
-            //
-            int rightEnd = 1;
-            int leftStart = 1;
-            if(start-1>=0){
-                leftStart = list.get(start) - list.get(start-1);
-            }
-            if(end+1<list.size()){
-                rightEnd = list.get(end+1)-list.get(end);
-            }
-
-            result = result + (leftStart)*(rightEnd);
+        public Node(int _val) {
+            val = _val;
+            neighbors = new ArrayList<Node>();
         }
-
-        return result;
+        public Node(int _val, ArrayList<Node> _neighbors) {
+            val = _val;
+            neighbors = _neighbors;
+        }
     }
 
-    public static void main(String[] args) {
-//        int[] nums = {1,1,2,1,1};
-//        System.out.println(new Solution().numberOfSubarrays(nums,3));
-        int[] nums2 = {2,2,2,1,2,2,1,2,2,2};
-        System.out.println(new Solution().numberOfSubarrays(nums2,2));
+
+    Map<Integer,Node> setNode = new HashMap<>();
+    boolean[][]map;
 
 
+    public void bsf(Node node){
+        if(node==null || setNode.containsKey(node.val)){
+            return ;
+        }
+        setNode.put(node.val, new Node(node.val));
+        for(Node temp:node.neighbors){
+            bsf(temp);
+        }
     }
+    public void mapMark(Node node){
+        if(node==null || map[node.val][node.val]){
+            return ;
+        }
+        map[node.val][node.val] = true;
+        for(Node temp:node.neighbors){
+            map[node.val][temp.val] = true;
+            mapMark(temp);
+        }
+    }
+
+    public Node buildTree(Node node){
+        if(!map[node.val][node.val]){
+            return node;
+        }
+        map[node.val][node.val] = false;
+
+        //将这个结点的关系填充下
+        for(int i=1;i<map.length;++i){
+            if(map[node.val][i] && node.val!=i){
+                node.neighbors.add(buildTree(setNode.get(i)));
+            }
+        }
+        return node;
+    }
+
+    public Node cloneGraph(Node node) {
+        bsf(node);//记录所有结点。
+        map= new boolean[setNode.size()+1][setNode.size()+1];
+        System.out.println(setNode);        
+        return   buildTree(setNode.get(node.val));
+    }
+
 }
