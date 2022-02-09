@@ -55,20 +55,21 @@ public class Problem_01_SwapWithoutTmp {
 //		System.out.println(add(2,2));
 
 //        int2String(1);
-//		int2String(-2);
-//		int2String(-1); // 取反码+1  0000000000000001
+		int2String(-2);
+        int2String((~(-2))+1);
+		int2String(-1); // 取反码+1  0000000000000001
 
 //		System.out.println(add(-1,2));
 
 
         //交换两个变量的值
-        int a = 1;//01
-        int b = 2;//10
-        a = a^b;//11
-        b = a^b;//01
-        a = a^b;//
-        System.out.println("a="+a);
-        System.out.println("b="+b);
+//        int a = 1;//01
+//        int b = 2;//10
+//        a = a^b;//11
+//        b = a^b;//01
+//        a = a^b;//
+//        System.out.println("a="+a);
+//        System.out.println("b="+b);
     }
 
 }
