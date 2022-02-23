@@ -3,77 +3,35 @@ package leecode;
 import java.util.Arrays;
 
 class Solution {
-    int[]matchsticks;
-    int length;//每条边的长度
-    int currentLen = 0;//当前总长度
-    boolean[]unUsed;// 没有使用火柴的index
+    public int subarraysWithKDistinct(int[] nums, int k) {
+        int n = nums.length;
+        int[] lower = new int[n], upper = new int[n];
+        find(lower, nums, k);
+        find(upper, nums, k - 1);
+        int ans = 0;
+        for (int i = 0; i < n; i++) ans += upper[i] - lower[i];
+        System.out.println(Arrays.toString(upper));
+        System.out.println(Arrays.toString(lower));
 
-    public boolean makesquare(int[] matchsticks) {
-        this.matchsticks = matchsticks;
-        if(matchsticks.length<=3){
-            return false;
-        }
-        length = 0;
-        for(int i=0;i<matchsticks.length;++i){
-            length+=matchsticks[i];
-        }
-        if((length%4)!=0){
-            return false;
-        }
-        Arrays.sort(matchsticks);
-        length = length/4;
-        if(matchsticks[matchsticks.length-1]>length){
-            return false;
-        }
-        unUsed = new boolean[matchsticks.length];
-
-        //先把最长的放入
-        for(int i=0;i<matchsticks.length-1;++i){
-            unUsed[i] = true;
-        }
-        currentLen = matchsticks[matchsticks.length-1];
-        return dfs();
+        return ans;
     }
-
-    //用到了第index个火柴了
-    public boolean dfs(){
-        //拼好了三条边就完成了
-        if(length*3 == currentLen){
-            return true;
-        }
-        for(int index=matchsticks.length-2;index>=0;--index){
-            if(unUsed[index] && canput(matchsticks[index])){
-                currentLen += matchsticks[index];
-                unUsed[index] = false;
-                boolean res = dfs();
-                if(res){
-                    return true;
-                }
-                currentLen -= matchsticks[index];
-                unUsed[index] = true;
+    void find(int[] arr, int[] nums, int k) {
+        int n = nums.length;
+        int[] cnt = new int[n + 1];  //[i,j]这段范围数字总数， cnt[x] 表示x这个数字的出现次数。
+        for (int i = 0, j = 0, sum = 0; i < n; i++) {
+            int right = nums[i];
+            if (cnt[right] == 0) sum++;
+            cnt[right]++;
+            while (sum > k) {
+                int left = nums[j++];
+                cnt[left]--;
+                if (cnt[left] == 0) sum--;
             }
-
+            arr[i] = j;
         }
-        return false;
     }
-
-    public boolean canput(int stickLen){
-        //之前 必须小于length
-        int leftLen = currentLen - currentLen/length*length;
-        if(leftLen + stickLen>length ){
-            return false;
-        }
-        return true;
-    }
-
 
     public static void main(String[] args) {
-        int[]stick = new int[]{1,5,6,7,8};
-//        System.out.println(new Solution().makesquare(stick));
-//        double d = 1e-6;
-//        System.out.println(d );
-
-        System.out.println(Arrays.toString(stick));
-//        Arrays.asList();
+        System.out.println(new Solution().subarraysWithKDistinct(new int[]{1,2,1,2,3},2));
     }
 }
