@@ -1,37 +1,48 @@
 package leecode;
 
-import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 class Solution {
-    public int subarraysWithKDistinct(int[] nums, int k) {
-        int n = nums.length;
-        int[] lower = new int[n], upper = new int[n];
-        find(lower, nums, k);
-        find(upper, nums, k - 1);
-        int ans = 0;
-        for (int i = 0; i < n; i++) ans += upper[i] - lower[i];
-        System.out.println(Arrays.toString(upper));
-        System.out.println(Arrays.toString(lower));
 
-        return ans;
-    }
-    void find(int[] arr, int[] nums, int k) {
-        int n = nums.length;
-        int[] cnt = new int[n + 1];  //[i,j]这段范围数字总数， cnt[x] 表示x这个数字的出现次数。
-        for (int i = 0, j = 0, sum = 0; i < n; i++) {
-            int right = nums[i];
-            if (cnt[right] == 0) sum++;
-            cnt[right]++;
-            while (sum > k) {
-                int left = nums[j++];
-                cnt[left]--;
-                if (cnt[left] == 0) sum--;
-            }
-            arr[i] = j;
+    /**
+     * Set<Integer>dp[] = new Set[];
+     * 合为x的元素出现了set次。
+     */
+    public boolean splitArraySameAverage(int[] nums) {
+        int sum = 0;
+        for (int n : nums) {
+            sum += n;
         }
+        double avg = sum * 1.0 / nums.length;
+        Set<Integer>[] dp = new Set[sum + 1];
+        dp[0] = new HashSet<>();
+        dp[0].add(0);
+        int index = 0;
+        while (index < nums.length) {
+            for (int i = sum; i >= 0; --i) {
+                if (i >= nums[index] && dp[i - nums[index]] != null) {
+                    if (dp[i] == null) {
+                        dp[i] = new HashSet<>();
+                    }
+                    Set<Integer> temp = dp[i - nums[index]];
+                    for(Integer oldT:temp){
+                        dp[i].add(1+oldT);
+                    }
+
+                    for(Integer times:dp[i]){
+                        if (i*1.0/times == avg){
+                            return true;
+                        }
+                    }
+                }
+            }
+            index++;
+        }
+        return false;
     }
 
     public static void main(String[] args) {
-        System.out.println(new Solution().subarraysWithKDistinct(new int[]{1,2,1,2,3},2));
+        System.out.println(new Solution().splitArraySameAverage(new int[]{1,2,3,4,5,6,7,8}));
     }
 }
